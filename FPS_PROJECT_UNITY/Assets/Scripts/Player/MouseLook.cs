@@ -12,7 +12,7 @@ public class MouseLook : MonoBehaviour
     [SerializeField]
     private Transform playerTransform;
 
-    private Transform lookRootTransform;
+    public Transform lookRootTransform;
 
     void Awake()
     {
@@ -35,6 +35,9 @@ public class MouseLook : MonoBehaviour
     {
         lookDirection = new Vector2(-Input.GetAxis(MouseAxis.MOUSE_VERTICAL), Input.GetAxis(MouseAxis.MOUSE_HORIZONTAL));
         currentDirection += lookDirection * sensitivity;
+
+        currentDirection.x = Mathf.Clamp(currentDirection.x,-80f,70f);
+
         playerTransform.localRotation = Quaternion.Euler(0f, currentDirection.y, 0f);
         lookRootTransform.localRotation = Quaternion.Euler(currentDirection.x, 0f, 0f);
     }
